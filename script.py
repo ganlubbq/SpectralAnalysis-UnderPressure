@@ -51,6 +51,8 @@ L = 1024
 f,t,Sxx = spectrogram(yn, fs=fsd, window=get_window('hamming', L),
                       nperseg=L, noverlap=(1024-64))
 
+Sxx = Sxx/np.mean(Sxx)
+
 #%% plot the figure
 
 I = 10*np.log10(Sxx)
@@ -62,6 +64,36 @@ ax.set_xlabel('seconds (s)', fontsize=16)
 tit = ax.set_title('Spectrogram using Hamming window with L = 1024 points (values in dB)', fontsize=20)
 tit.set_position((0.5, 1.02))
 
-plt.savefig('spectrogram_fully.pdf', format='pdf')
-plt.savefig('spectrogram_fully.png', format='png')
-plt.savefig('spectrogram_fully.eps', format='eps')
+plt.savefig('spectrogram.pdf', format='pdf')
+plt.savefig('spectrogram.png', format='png')
+plt.savefig('spectrogram.eps', format='eps')
+
+#%%
+
+I = 10*np.log10(Sxx)
+fig = plt.figure(facecolor='white', figsize=(16,7))
+gs = gridspec.GridSpec(2, 2, height_ratios=[4, 1], width_ratios=[80, 1], hspace=0.015) 
+
+ax0 = plt.subplot(gs[0,0])
+im = ax0.imshow(I, aspect='auto', origin='lower', extent=[t[0], t[-1], f[0], f[-1]])
+ax0.set_ylim(0, 1000)
+ax0.set_ylabel('frequency (Hz)', fontsize=16)
+ax0.set_xticks([])
+tit = ax0.set_title('Spectrogram using Hamming window with L = 1024 points (intensity in dB)', fontsize=20)
+tit.set_position((0.5, 1.02))
+
+time = np.linspace(0,t[-1],len(yn))
+ax1 = plt.subplot(gs[1,0])
+ax1.plot(time, yn, lw=0.8)
+ax1.set_xlabel('seconds (s)', fontsize=16)
+ax1.set_ylabel('normalized\namplitude', fontsize=16)
+ax1.set_ylim(-1.4, +1.4)
+ax1.set_xlim(time[0], time[-1])
+
+ax2 = plt.subplot(gs[0,1])
+clb = plt.colorbar(im, cax=ax2)
+clb.set_ticks([-120, -90, -60, -30, 0, 30])
+clb.set_ticklabels(['-120', '-90', '-60', '-30', '0', '30'])
+clb.ax.set_position([0.84, 0.27, 0.01, 0.63])
+
+plt.savefig('spectrogram_duo.png', format='png')
