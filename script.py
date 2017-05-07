@@ -51,17 +51,17 @@ L = 1024
 f,t,Sxx = spectrogram(yn, fs=fsd, window=get_window('hamming', L),
                       nperseg=L, noverlap=(1024-64))
 
-# plot the figure
+#%% plot the figure
 
 I = 10*np.log10(Sxx)
 fig,ax = plt.subplots(facecolor='white', figsize=(16,7))
 ax.imshow(I, aspect='auto', origin='lower', extent=[t[0], t[-1], f[0], f[-1]])
-ax.set_ylim(0, 1000)
+ax.set_ylim(0, 4000)
 ax.set_ylabel('frequency (Hz)', fontsize=16)
 ax.set_xlabel('seconds (s)', fontsize=16)
 tit = ax.set_title('Spectrogram using Hamming window with L = 1024 points (values in dB)', fontsize=20)
 tit.set_position((0.5, 1.02))
 
-plt.savefig('spectrogram.pdf', format='pdf')
-plt.savefig('spectrogram.png', format='png')
-plt.savefig('spectrogram.eps', format='eps')
+plt.savefig('spectrogram_fully.pdf', format='pdf')
+plt.savefig('spectrogram_fully.png', format='png')
+plt.savefig('spectrogram_fully.eps', format='eps')
