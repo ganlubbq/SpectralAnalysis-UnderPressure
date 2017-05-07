@@ -2,6 +2,8 @@
 
 I've always been amazed by Freddie Mercury's voice and how he could get to very high notes. In this figure, I did a spectrogram of his voice between minutes 1:53 and 2:10 of Queen's "Under Pressure".
 
+In fact, [this](http://www.tandfonline.com/doi/abs/10.3109/14015439.2016.1156737?journalCode=ilog20) article shows a study of the frequency content of his voice and gives reasons for why he was (and still is) such as unique singer.
+
 For those not used to signal analysis: a spectrogram is a plot of the frequency content of a time series at different instants of time. To do so, I used a sliding-window containing 1024 points (with 960 points of overlap between each one of them) and used Welch's method to estimate the signal's power spectral density. 
 
 I used the A Capella version of Queen's Under Pressure available [here](https://www.youtube.com/watch?v=uMQb9LCNGxs).
